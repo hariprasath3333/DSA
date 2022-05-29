@@ -45,20 +45,22 @@ public class BinarySearchTree {
 			return null;
 		
 		if(d < node.data) {
-			node.left = insert(node.left, d);
+			node.left = delete(node.left, d);
 		}else if( d > node.data) {
-			node.right = insert(node.right, d);
+			node.right = delete(node.right, d);
+		}else{
+			if(node.left == null) {
+				return node.right;
+			} else if(node.right == null) {
+				return node.left;
+			} else {
+				node.data = min(node.right);
+				node.right = delete(node.right, node.data);
+			}
 		}
 		
 		
-		if(node.left == null) {
-			return node.right;
-		} else if(node.right == null) {
-			return node.left;
-		} else {
-			node.data = min(node.right);
-			node.right = delete(node.right, node.data);
-		}
+
 		
 		return node;
 	} 
